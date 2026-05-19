@@ -2,145 +2,119 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>PRESTIGE AUTO | OS V4</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Outfit:wght@300;600&display=swap" rel="stylesheet">
+    <title>Prestige AUTO | Titanium OS V6</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --neon-gold: #ffcc00;
-            --deep-black: #080808;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 204, 0, 0.2);
-        }
+        :root { --accent: #00d4ff; --dark: #0a0b10; --card: #15171f; --pdg: #ff0055; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--dark); color: #fff; margin: 0; scroll-behavior: smooth; }
+        
+        /* ACCUEIL */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: radial-gradient(circle, #1e2230 0%, var(--dark) 100%); }
+        .hero h1 { font-family: 'Bebas Neue', cursive; font-size: 8rem; margin: 0; letter-spacing: 10px; background: linear-gradient(to bottom, #fff, #444); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { text-transform: uppercase; letter-spacing: 5px; opacity: 0.5; margin-top: -10px; }
+        .nav-btns { margin-top: 50px; display: flex; gap: 20px; }
+        .btn { padding: 15px 35px; border: 1px solid rgba(255,255,255,0.2); color: #fff; text-decoration: none; border-radius: 50px; transition: 0.3s; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; cursor: pointer;}
+        .btn:hover { background: #fff; color: #000; }
 
-        body {
-            background-color: var(--deep-black);
-            color: #fff;
-            font-family: 'Outfit', sans-serif;
-            margin: 0;
-            overflow-x: hidden;
-            background-image: radial-gradient(circle at 50% -20%, #1a1a00 0%, var(--deep-black) 80%);
-        }
+        /* SECTIONS */
+        .section { padding: 80px 5%; min-height: 100vh; display: none; }
+        .active { display: block; }
+        .title-sec { font-family: 'Bebas Neue'; font-size: 4rem; color: var(--accent); margin-bottom: 40px; }
 
-        /* --- ACCUEIL IMMERSIF --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 10%;
-        }
+        /* GESTION VENDEURS */
+        .glass-box { background: var(--card); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); max-width: 600px; margin: auto; }
+        input, select { width: 100%; padding: 15px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; margin-top: 10px; margin-bottom: 20px; box-sizing: border-box; }
+        .btn-submit { width: 100%; padding: 15px; background: var(--accent); border: none; border-radius: 10px; color: #000; font-weight: bold; cursor: pointer; text-transform: uppercase; }
 
-        .glitch-title {
-            font-family: 'Syncopate', sans-serif;
-            font-size: clamp(3rem, 10vw, 8rem);
-            line-height: 0.8;
-            letter-spacing: -5px;
-            text-transform: uppercase;
-            margin: 0;
-        }
+        /* STATS PDG */
+        .stats-container { display: flex; gap: 20px; margin-bottom: 30px; }
+        .stat-card { flex: 1; background: var(--card); padding: 20px; border-radius: 15px; text-align: center; border-bottom: 3px solid var(--pdg); }
+        .stat-card small { font-size: 0.7rem; opacity: 0.5; text-transform: uppercase; }
+        .stat-box-val { font-size: 1.8rem; font-weight: bold; margin-top: 5px; color: var(--pdg); }
 
-        .glitch-title span { color: var(--neon-gold); display: block; }
+        /* TABLEAU HISTORIQUE */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: rgba(0,0,0,0.3); border-radius: 10px; overflow: hidden;}
+        th { text-align: left; padding: 15px; background: #1a1a1a; color: var(--pdg); font-size: 0.8rem; text-transform: uppercase; }
+        td { padding: 15px; border-top: 1px solid rgba(255,255,255,0.05); }
 
-        /* --- DASHBOARD FUTURISTE --- */
-        .main-app { padding: 50px 5%; display: grid; grid-template-columns: 350px 1fr; gap: 30px; }
-
-        .panel {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 0 40px 0 40px;
-            padding: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .panel::before {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-gold), transparent);
-        }
-
-        /* Stats flottantes */
-        .stat-card { text-align: center; margin-bottom: 25px; }
-        .stat-label { font-family: 'Syncopate'; font-size: 0.7rem; color: var(--neon-gold); opacity: 0.7; }
-        .stat-value { font-size: 2.5rem; font-weight: 600; display: block; }
-
-        /* Inputs Style */
-        input, select {
-            width: 100%; background: transparent; border: none; border-bottom: 2px solid var(--border);
-            color: white; padding: 15px 0; font-size: 1.1rem; margin-top: 20px; outline: none; transition: 0.3s;
-        }
-
-        input:focus { border-color: var(--neon-gold); }
-
-        .btn-action {
-            width: 100%; padding: 20px; margin-top: 40px; border-radius: 50px; border: 1px solid var(--neon-gold);
-            background: transparent; color: var(--neon-gold); font-family: 'Syncopate'; font-weight: bold;
-            cursor: pointer; transition: 0.4s; text-transform: uppercase;
-        }
-
-        .btn-action:hover { background: var(--neon-gold); color: black; box-shadow: 0 0 30px rgba(255, 204, 0, 0.4); }
-
-        /* Tableau Pro */
-        .sales-list { width: 100%; border-collapse: separate; border-spacing: 0 10px; }
-        .sales-list tr { background: rgba(255,255,255,0.02); transition: 0.3s; }
-        .sales-list tr:hover { background: rgba(255,255,255,0.05); }
-        .sales-list td { padding: 20px; }
-        .sales-list td:first-child { border-radius: 15px 0 0 15px; font-weight: bold; }
-        .sales-list td:last-child { border-radius: 0 15px 15px 0; text-align: right; }
-
-        .delete-icon { color: #ff4444; cursor: pointer; border: 1px solid #ff4444; padding: 5px 10px; border-radius: 5px; background: none; }
+        /* LOCK SCREEN */
+        .pdg-lock { height: 100vh; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center;}
+        .pdg-only-text { color: var(--pdg); font-family: 'Bebas Neue'; font-size: 5rem; line-height: 1; }
     </style>
 </head>
 <body>
 
-<section class="hero">
-    <h1 class="glitch-title">Prestige<span>Auto.</span></h1>
-    <p style="font-size: 1.5rem; opacity: 0.5;">L'empire de l'automobile commence ici.</p>
+<!-- ACCUEIL -->
+<section id="home" class="hero">
+    <h1>PRESTIGE AUTO</h1>
+    <p>Système de Gestion Intégré</p>
+    <div class="nav-btns">
+        <button class="btn" onclick="showSection('vendeurs')">Espace Ventes</button>
+        <button class="btn" style="border-color: var(--pdg); color: var(--pdg);" onclick="showSection('pdg-lock')">Salon PDG</button>
+    </div>
 </section>
 
-<div class="main-app">
-    <!-- BARRE LATERALE -->
-    <aside>
-        <div class="panel">
-            <div class="stat-card">
-                <span class="stat-label">Bénéfice global</span>
-                <span class="stat-value" id="v_total">0 €</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Top Performance</span>
-                <span class="stat-value" id="v_top" style="font-size: 1.5rem;">---</span>
-            </div>
-            <hr style="opacity: 0.1; margin: 30px 0;">
-            <h3 style="font-family: 'Syncopate'; font-size: 0.8rem;">Enregistrement</h3>
-            <input type="text" id="in_nom" placeholder="IDENTIFIANT VENDEUR">
-            <select id="in_vehicule"></select>
-            <button class="btn-action" onclick="pushVente()">Valider</button>
-        </div>
-    </aside>
+<!-- SECTION VENTES (PUBLIC VENDEURS) -->
+<section id="vendeurs" class="section">
+    <button class="btn" onclick="showSection('home')">← Retour</button>
+    <div class="title-sec" style="text-align: center;">Portail Conseiller</div>
+    <div class="glass-box">
+        <h3>Enregistrer une Transaction</h3>
+        <label>Identifiant Vendeur</label>
+        <input type="text" id="sellerName" placeholder="Entrez votre nom">
+        <label>Sélection Véhicule</label>
+        <select id="carSelect"></select>
+        <button class="btn-submit" onclick="addSale()">Valider la vente</button>
+    </div>
+</section>
 
-    <!-- LISTE DES VENTES -->
-    <main class="panel">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-            <h2 style="font-family: 'Syncopate';">Archives Transactions</h2>
-            <button onclick="clearData()" style="background:none; border:none; color:rgba(255,255,255,0.3); cursor:pointer;">PURGER SYSTÈME</button>
+<!-- LOCK PDG -->
+<section id="pdg-lock" class="pdg-lock">
+    <div class="pdg-only-text">RESTRICTED<br>AREA</div>
+    <p style="letter-spacing: 2px; opacity: 0.6;">AUTORISATION PDG REQUISE</p>
+    <input type="password" id="pdgCode" placeholder="CODE PIN" style="width: 200px; text-align: center; border-color: var(--pdg); font-size: 1.5rem;">
+    <div style="display: flex; gap:10px;">
+        <button class="btn" onclick="showSection('home')">Annuler</button>
+        <button class="btn" style="background: var(--pdg); color: #fff; border:none;" onclick="checkCode()">Accéder</button>
+    </div>
+</section>
+
+<!-- SALON PDG (HISTORIQUE & ADMIN) -->
+<section id="pdg-section" class="section">
+    <div style="display:flex; justify-content: space-between; align-items: center;">
+        <div class="title-sec" style="color: var(--pdg); margin:0;">PDG CONTROL CENTER</div>
+        <button class="btn" onclick="showSection('home')">Déconnexion</button>
+    </div>
+
+    <div class="stats-container" style="margin-top: 40px;">
+        <div class="stat-card"><small>Bénéfice Net Total</small><div class="stat-box-val" id="totalGains">0 €</div></div>
+        <div class="stat-card"><small>Meilleur Vendeur</small><div class="stat-box-val" id="topV">---</div></div>
+        <div class="stat-card"><small>Volume de Ventes</small><div class="stat-box-val" id="units">0</div></div>
+    </div>
+
+    <div style="background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid var(--pdg);">
+        <div style="display:flex; justify-content: space-between; align-items: center;">
+            <h3>Journal Historique des Ventes</h3>
+            <button onclick="purgeAll()" style="color:var(--pdg); background:none; border: 1px solid var(--pdg); padding: 5px 15px; border-radius: 5px; cursor:pointer;">Purger tout</button>
         </div>
-        <table class="sales-list" id="log_ventes">
+        <table id="salesTable">
             <thead>
-                <tr style="background: transparent; color: var(--neon-gold); font-size: 0.7rem; text-transform: uppercase;">
+                <tr>
+                    <th>Date</th>
                     <th>Vendeur</th>
                     <th>Modèle</th>
-                    <th>Bénéfice</th>
-                    <th>Actions</th>
+                    <th>Marge</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody></tbody>
         </table>
-    </main>
-</div>
+    </div>
+</section>
 
 <script>
-// Intégration du catalogue complet de Prestige AUTO
-const catalogue = {
+// Catalogue complet Prestige AUTO
+const database = {
     "Premier Limo": 100000, "Stellar 911 RS": 60000, "V Model S": 50000, "Charger 1870": 35000,
     "Stellar Coupe": 25000, "RX7": 20000, "Delorean CMD-12": 17000, "Korn Ranger 2021": 15000,
     "FTR": 15000, "Range River": 12000, "Camion Fourgon": 12000, "5008": 10000,
@@ -148,62 +122,92 @@ const catalogue = {
     "C4 Picasso": 4000, "206": 4000, "Olympia S7": 3000, "Renaud Express": 2500, "Premier": 2000
 };
 
-let data = JSON.parse(localStorage.getItem('prestige_os_v4')) || [];
+let sales = JSON.parse(localStorage.getItem('prestige_v6')) || [];
 
 function setup() {
-    const s = document.getElementById('in_vehicule');
-    Object.keys(catalogue).forEach(k => {
-        let o = document.createElement('option');
-        o.value = k;
-        o.textContent = `${k.toUpperCase()} — ${catalogue[k].toLocaleString()} €`;
-        s.appendChild(o);
+    const s = document.getElementById('carSelect');
+    Object.keys(database).forEach(car => {
+        let opt = document.createElement('option');
+        opt.value = car;
+        opt.textContent = `${car.toUpperCase()} (${database[car].toLocaleString()} €)`;
+        s.appendChild(opt);
     });
-    refresh();
+    render();
 }
 
-function pushVente() {
-    const n = document.getElementById('in_nom').value;
-    const v = document.getElementById('in_vehicule').value;
-    if(!n) return alert("Identifiant requis.");
-    data.push({ id: Date.now(), nom: n, car: v, money: catalogue[v] });
-    sync();
+function showSection(id) {
+    document.querySelectorAll('.section, .pdg-lock, .hero').forEach(s => s.style.display = 'none');
+    const target = document.getElementById(id);
+    if(id === 'home') target.style.display = 'flex';
+    else if(id === 'pdg-lock') target.style.display = 'flex';
+    else target.style.display = 'block';
 }
 
-function dropVente(id) {
-    data = data.filter(x => x.id !== id);
-    sync();
+function addSale() {
+    const name = document.getElementById('sellerName').value;
+    const car = document.getElementById('carSelect').value;
+    if(!name) return alert("Veuillez entrer votre nom de vendeur.");
+    
+    sales.push({ 
+        id: Date.now(), 
+        date: new Date().toLocaleDateString('fr-FR'),
+        seller: name, 
+        car: car, 
+        profit: database[car] 
+    });
+    
+    localStorage.setItem('prestige_v6', JSON.stringify(sales));
+    alert("Vente enregistrée avec succès !");
+    document.getElementById('sellerName').value = "";
+    render();
 }
 
-function clearData() {
-    if(confirm("Confirmer la purge totale des données ?")) { data = []; sync(); }
+function checkCode() {
+    const code = document.getElementById('pdgCode').value;
+    if(code === "2009") {
+        showSection('pdg-section');
+        document.getElementById('pdgCode').value = "";
+    } else {
+        alert("ACCÈS REFUSÉ : CODE PIN INCORRECT");
+    }
 }
 
-function sync() {
-    localStorage.setItem('prestige_os_v4', JSON.stringify(data));
-    refresh();
+function deleteSale(id) {
+    sales = sales.filter(x => x.id !== id);
+    localStorage.setItem('prestige_v6', JSON.stringify(sales));
+    render();
 }
 
-function refresh() {
-    const table = document.querySelector('#log_ventes tbody');
-    table.innerHTML = "";
+function purgeAll() {
+    if(confirm("ALERTE : Voulez-vous vraiment supprimer TOUT l'historique ?")) {
+        sales = [];
+        localStorage.setItem('prestige_v6', JSON.stringify(sales));
+        render();
+    }
+}
+
+function render() {
+    const body = document.querySelector('#salesTable tbody');
+    body.innerHTML = "";
     let total = 0;
-    let leader = {};
+    let leaders = {};
 
-    data.forEach(d => {
-        total += d.money;
-        leader[d.nom] = (leader[d.nom] || 0) + d.money;
-        table.innerHTML += `<tr>
-            <td>${d.nom}</td>
-            <td style="opacity:0.6">${d.car}</td>
-            <td style="color:var(--neon-gold)">+${d.money.toLocaleString()} €</td>
-            <td><button class="delete-icon" onclick="dropVente(${d.id})">×</button></td>
+    sales.forEach(s => {
+        total += s.profit;
+        leaders[s.seller] = (leaders[s.seller] || 0) + s.profit;
+        body.innerHTML += `<tr>
+            <td style="opacity:0.5; font-size:0.8rem">${s.date}</td>
+            <td><b>${s.seller}</b></td>
+            <td>${s.car}</td>
+            <td style="color:var(--pdg); font-weight:bold;">${s.profit.toLocaleString()} €</td>
+            <td><button onclick="deleteSale(${s.id})" style="color:red; background:none; border:none; cursor:pointer;">Effacer</button></td>
         </tr>`;
     });
 
-    document.getElementById('v_total').innerText = total.toLocaleString() + " €";
-    
-    let topName = Object.keys(leader).reduce((a, b) => leader[a] > leader[b] ? a : b, "---");
-    document.getElementById('v_top').innerText = topName.toUpperCase();
+    document.getElementById('totalGains').innerText = total.toLocaleString() + " €";
+    document.getElementById('units').innerText = sales.length;
+    let top = Object.keys(leaders).reduce((a, b) => leaders[a] > leaders[b] ? a : b, "---");
+    document.getElementById('topV').innerText = top.toUpperCase();
 }
 
 setup();
