@@ -2,8 +2,8 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>PRESTIGE AUTO | LUXURY OS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>PRESTIGE AUTO | LUXURY OS V7</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght=700&family=Inter:wght=300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --accent: #00f2ff;
@@ -22,7 +22,6 @@
             letter-spacing: -0.02em;
         }
 
-        /* --- BACKGROUND EFFECTS --- */
         .bg-glow {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at 50% 50%, #002b33 0%, transparent 70%);
@@ -54,7 +53,6 @@
             padding: 18px 45px; border-radius: 2px; border: 1px solid var(--border);
             background: transparent; color: #fff; font-weight: 700; cursor: pointer;
             text-transform: uppercase; font-size: 0.75rem; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative; overflow: hidden;
         }
 
         .btn-luxe:hover { border-color: var(--accent); box-shadow: 0 0 30px rgba(0, 242, 255, 0.2); }
@@ -68,7 +66,13 @@
         .glass-panel {
             background: var(--card-bg); backdrop-filter: blur(40px);
             border: 1px solid var(--border); border-radius: 4px; padding: 50px;
-            max-width: 900px; margin: auto;
+            margin-bottom: 40px;
+        }
+
+        .pdg-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
         }
 
         /* --- FORMULAIRE --- */
@@ -88,9 +92,9 @@
         .stat-val { font-size: 2.2rem; font-weight: 700; color: var(--pdg-glow); }
 
         /* --- TABLE STYLE --- */
-        table { width: 100%; border-collapse: collapse; margin-top: 30px; font-size: 0.9rem; }
-        th { text-align: left; padding: 20px; border-bottom: 1px solid #222; opacity: 0.4; font-weight: 400; text-transform: uppercase; }
-        td { padding: 20px; border-bottom: 1px solid #111; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9rem; }
+        th { text-align: left; padding: 15px; border-bottom: 1px solid #222; opacity: 0.4; font-weight: 400; text-transform: uppercase; font-size: 0.75rem; }
+        td { padding: 15px; border-bottom: 1px solid #111; }
         .delete-btn { background: none; border: 1px solid #ff0055; color: #ff0055; padding: 5px 12px; cursor: pointer; border-radius: 2px; font-size: 0.7rem; }
 
         /* --- LOCK SCREEN --- */
@@ -152,28 +156,45 @@
         <div class="stat-card"><span>TRANSACTIONS</span><div class="stat-val" id="res_count">0</div></div>
     </div>
 
-    <div class="glass-panel" style="max-width:100%;">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h3 style="font-family:'Syncopate'; font-size:0.8rem;">JOURNAL DÉTAILLÉ</h3>
-            <button onclick="purge()" style="background:none; border:none; color:#444; font-size:0.7rem; cursor:pointer;">EFFACER LES ARCHIVES</button>
+    <div class="pdg-grid">
+        <!-- CLASSEMENT PAR VENDEUR -->
+        <div class="glass-panel">
+            <h3 style="font-family:'Syncopate'; font-size:0.8rem; color:var(--pdg-glow);">CHIFFRE PAR CONSEILLER</h3>
+            <table id="sellerTotalTable">
+                <thead>
+                    <tr>
+                        <th>Vendeur</th>
+                        <th>Total Vendu</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
-        <table id="mainTable">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Conseiller</th>
-                    <th>Véhicule</th>
-                    <th>Marge Brute</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+
+        <!-- JOURNAL DE BORD -->
+        <div class="glass-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3 style="font-family:'Syncopate'; font-size:0.8rem;">JOURNAL DÉTAILLÉ</h3>
+                <button onclick="purge()" style="background:none; border:none; color:#444; font-size:0.7rem; cursor:pointer;">EFFACER LES ARCHIVES</button>
+            </div>
+            <table id="mainTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Conseiller</th>
+                        <th>Véhicule</th>
+                        <th>Marge Brute</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
 </section>
 
 <script>
-// Catalogue Prestige AUTO[cite: 3]
+// Catalogue Prestige AUTO
 const cars = {
     "Premier Limo": 100000, "Stellar 911 RS": 60000, "V Model S": 50000, "Charger 1870": 35000,
     "Stellar Coupe": 25000, "RX7": 20000, "Delorean CMD-12": 17000, "Korn Ranger 2021": 15000,
@@ -223,11 +244,18 @@ function addSale() {
 
 function draw() {
     const b = document.querySelector('#mainTable tbody');
+    const sellerBody = document.querySelector('#sellerTotalTable tbody');
+    
     b.innerHTML = "";
-    let tot = 0; let l = {};
+    sellerBody.innerHTML = "";
+    
+    let tot = 0; 
+    let l = {};
+
     db.forEach(x => {
         tot += x.p;
         l[x.n] = (l[x.n] || 0) + x.p;
+        
         b.innerHTML += `<tr>
             <td style="opacity:0.4">${x.d}</td>
             <td><b>${x.n}</b></td>
@@ -236,6 +264,15 @@ function draw() {
             <td><button class="delete-btn" onclick="kill(${x.id})">ANNULER</button></td>
         </tr>`;
     });
+
+    // Remplissage du tableau cumulatif des vendeurs
+    Object.keys(l).forEach(vendeur => {
+        sellerBody.innerHTML += `<tr>
+            <td><b>${vendeur}</b></td>
+            <td style="color:var(--accent); font-weight:700;">${l[vendeur].toLocaleString()} €</td>
+        </tr>`;
+    });
+
     document.getElementById('res_total').innerText = tot.toLocaleString() + " €";
     document.getElementById('res_count').innerText = db.length;
     let top = Object.keys(l).reduce((a, b) => l[a] > l[b] ? a : b, "---");
