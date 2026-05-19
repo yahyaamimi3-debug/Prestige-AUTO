@@ -2,108 +2,168 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Prestige AUTO | Titanium OS V6</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>PRESTIGE AUTO | LUXURY OS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #00d4ff; --dark: #0a0b10; --card: #15171f; --pdg: #ff0055; }
-        body { font-family: 'Montserrat', sans-serif; background: var(--dark); color: #fff; margin: 0; scroll-behavior: smooth; }
+        :root {
+            --accent: #00f2ff;
+            --pdg-glow: #ff0055;
+            --bg: #050505;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: #fff;
+            margin: 0;
+            overflow-x: hidden;
+            letter-spacing: -0.02em;
+        }
+
+        /* --- BACKGROUND EFFECTS --- */
+        .bg-glow {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #002b33 0%, transparent 70%);
+            opacity: 0.3; z-index: -1; pointer-events: none;
+        }
+
+        /* --- HOME HERO --- */
+        #home {
+            height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+        }
+
+        .main-title {
+            font-family: 'Syncopate', sans-serif; font-size: clamp(3rem, 10vw, 7rem);
+            margin: 0; text-transform: uppercase; letter-spacing: -2px;
+            background: linear-gradient(180deg, #fff 0%, #444 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            text-transform: uppercase; letter-spacing: 0.5em; font-size: 0.8rem;
+            opacity: 0.5; margin-top: 20px;
+        }
+
+        /* --- BUTTONS & INTERFACE --- */
+        .nav-grid { display: flex; gap: 20px; margin-top: 60px; }
         
-        /* ACCUEIL */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: radial-gradient(circle, #1e2230 0%, var(--dark) 100%); }
-        .hero h1 { font-family: 'Bebas Neue', cursive; font-size: 8rem; margin: 0; letter-spacing: 10px; background: linear-gradient(to bottom, #fff, #444); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero p { text-transform: uppercase; letter-spacing: 5px; opacity: 0.5; margin-top: -10px; }
-        .nav-btns { margin-top: 50px; display: flex; gap: 20px; }
-        .btn { padding: 15px 35px; border: 1px solid rgba(255,255,255,0.2); color: #fff; text-decoration: none; border-radius: 50px; transition: 0.3s; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; cursor: pointer;}
-        .btn:hover { background: #fff; color: #000; }
+        .btn-luxe {
+            padding: 18px 45px; border-radius: 2px; border: 1px solid var(--border);
+            background: transparent; color: #fff; font-weight: 700; cursor: pointer;
+            text-transform: uppercase; font-size: 0.75rem; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative; overflow: hidden;
+        }
 
-        /* SECTIONS */
-        .section { padding: 80px 5%; min-height: 100vh; display: none; }
-        .active { display: block; }
-        .title-sec { font-family: 'Bebas Neue'; font-size: 4rem; color: var(--accent); margin-bottom: 40px; }
+        .btn-luxe:hover { border-color: var(--accent); box-shadow: 0 0 30px rgba(0, 242, 255, 0.2); }
+        .btn-pdg { color: var(--pdg-glow); border-color: rgba(255, 0, 85, 0.3); }
+        .btn-pdg:hover { border-color: var(--pdg-glow); box-shadow: 0 0 30px rgba(255, 0, 85, 0.2); }
 
-        /* GESTION VENDEURS */
-        .glass-box { background: var(--card); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); max-width: 600px; margin: auto; }
-        input, select { width: 100%; padding: 15px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; margin-top: 10px; margin-bottom: 20px; box-sizing: border-box; }
-        .btn-submit { width: 100%; padding: 15px; background: var(--accent); border: none; border-radius: 10px; color: #000; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        /* --- SECTIONS --- */
+        .section { display: none; padding: 100px 5%; min-height: 100vh; animation: fadeIn 0.8s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* STATS PDG */
-        .stats-container { display: flex; gap: 20px; margin-bottom: 30px; }
-        .stat-card { flex: 1; background: var(--card); padding: 20px; border-radius: 15px; text-align: center; border-bottom: 3px solid var(--pdg); }
-        .stat-card small { font-size: 0.7rem; opacity: 0.5; text-transform: uppercase; }
-        .stat-box-val { font-size: 1.8rem; font-weight: bold; margin-top: 5px; color: var(--pdg); }
+        .glass-panel {
+            background: var(--card-bg); backdrop-filter: blur(40px);
+            border: 1px solid var(--border); border-radius: 4px; padding: 50px;
+            max-width: 900px; margin: auto;
+        }
 
-        /* TABLEAU HISTORIQUE */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: rgba(0,0,0,0.3); border-radius: 10px; overflow: hidden;}
-        th { text-align: left; padding: 15px; background: #1a1a1a; color: var(--pdg); font-size: 0.8rem; text-transform: uppercase; }
-        td { padding: 15px; border-top: 1px solid rgba(255,255,255,0.05); }
+        /* --- FORMULAIRE --- */
+        .form-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 10px; display: block; }
+        input, select {
+            width: 100%; background: #111; border: 1px solid #222; padding: 20px;
+            color: #fff; font-size: 1rem; margin-bottom: 30px; border-radius: 2px; outline: none;
+        }
+        input:focus { border-color: var(--accent); }
 
-        /* LOCK SCREEN */
-        .pdg-lock { height: 100vh; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center;}
-        .pdg-only-text { color: var(--pdg); font-family: 'Bebas Neue'; font-size: 5rem; line-height: 1; }
+        /* --- STATS PDG --- */
+        .pdg-dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 40px; }
+        .stat-card {
+            background: #0a0a0a; border: 1px solid #111; padding: 30px; text-align: center;
+            border-top: 2px solid var(--pdg-glow);
+        }
+        .stat-val { font-size: 2.2rem; font-weight: 700; color: var(--pdg-glow); }
+
+        /* --- TABLE STYLE --- */
+        table { width: 100%; border-collapse: collapse; margin-top: 30px; font-size: 0.9rem; }
+        th { text-align: left; padding: 20px; border-bottom: 1px solid #222; opacity: 0.4; font-weight: 400; text-transform: uppercase; }
+        td { padding: 20px; border-bottom: 1px solid #111; }
+        .delete-btn { background: none; border: 1px solid #ff0055; color: #ff0055; padding: 5px 12px; cursor: pointer; border-radius: 2px; font-size: 0.7rem; }
+
+        /* --- LOCK SCREEN --- */
+        .pdg-lock {
+            height: 100vh; display: none; flex-direction: column;
+            justify-content: center; align-items: center;
+        }
     </style>
 </head>
 <body>
 
+<div class="bg-glow"></div>
+
 <!-- ACCUEIL -->
-<section id="home" class="hero">
-    <h1>PRESTIGE AUTO</h1>
-    <p>Système de Gestion Intégré</p>
-    <div class="nav-btns">
-        <button class="btn" onclick="showSection('vendeurs')">Espace Ventes</button>
-        <button class="btn" style="border-color: var(--pdg); color: var(--pdg);" onclick="showSection('pdg-lock')">Salon PDG</button>
+<section id="home">
+    <div class="subtitle">Management de Prestige</div>
+    <h1 class="main-title">PRESTIGE<br>AUTO.</h1>
+    <div class="nav-grid">
+        <button class="btn-luxe" onclick="show('vendeurs')">Accès Vendeurs</button>
+        <button class="btn-luxe btn-pdg" onclick="show('pdg-lock')">Privilège PDG</button>
     </div>
 </section>
 
-<!-- SECTION VENTES (PUBLIC VENDEURS) -->
+<!-- ESPACE VENDEURS -->
 <section id="vendeurs" class="section">
-    <button class="btn" onclick="showSection('home')">← Retour</button>
-    <div class="title-sec" style="text-align: center;">Portail Conseiller</div>
-    <div class="glass-box">
-        <h3>Enregistrer une Transaction</h3>
-        <label>Identifiant Vendeur</label>
-        <input type="text" id="sellerName" placeholder="Entrez votre nom">
-        <label>Sélection Véhicule</label>
-        <select id="carSelect"></select>
-        <button class="btn-submit" onclick="addSale()">Valider la vente</button>
-    </div>
-</section>
-
-<!-- LOCK PDG -->
-<section id="pdg-lock" class="pdg-lock">
-    <div class="pdg-only-text">RESTRICTED<br>AREA</div>
-    <p style="letter-spacing: 2px; opacity: 0.6;">AUTORISATION PDG REQUISE</p>
-    <input type="password" id="pdgCode" placeholder="CODE PIN" style="width: 200px; text-align: center; border-color: var(--pdg); font-size: 1.5rem;">
-    <div style="display: flex; gap:10px;">
-        <button class="btn" onclick="showSection('home')">Annuler</button>
-        <button class="btn" style="background: var(--pdg); color: #fff; border:none;" onclick="checkCode()">Accéder</button>
-    </div>
-</section>
-
-<!-- SALON PDG (HISTORIQUE & ADMIN) -->
-<section id="pdg-section" class="section">
-    <div style="display:flex; justify-content: space-between; align-items: center;">
-        <div class="title-sec" style="color: var(--pdg); margin:0;">PDG CONTROL CENTER</div>
-        <button class="btn" onclick="showSection('home')">Déconnexion</button>
-    </div>
-
-    <div class="stats-container" style="margin-top: 40px;">
-        <div class="stat-card"><small>Bénéfice Net Total</small><div class="stat-box-val" id="totalGains">0 €</div></div>
-        <div class="stat-card"><small>Meilleur Vendeur</small><div class="stat-box-val" id="topV">---</div></div>
-        <div class="stat-card"><small>Volume de Ventes</small><div class="stat-box-val" id="units">0</div></div>
-    </div>
-
-    <div style="background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid var(--pdg);">
-        <div style="display:flex; justify-content: space-between; align-items: center;">
-            <h3>Journal Historique des Ventes</h3>
-            <button onclick="purgeAll()" style="color:var(--pdg); background:none; border: 1px solid var(--pdg); padding: 5px 15px; border-radius: 5px; cursor:pointer;">Purger tout</button>
+    <div style="max-width: 600px; margin: auto;">
+        <button onclick="show('home')" style="background:none; border:none; color:#666; cursor:pointer; margin-bottom:40px;">← RETOUR</button>
+        <div class="glass-panel">
+            <h2 style="font-family:'Syncopate'; font-size:1rem; margin-bottom:40px;">NOUVELLE TRANSACTION</h2>
+            <span class="form-label">Identité Commerciale</span>
+            <input type="text" id="sellerID" placeholder="Nom du conseiller">
+            <span class="form-label">Configuration Véhicule</span>
+            <select id="carID"></select>
+            <button class="btn-luxe" style="width:100%; background:var(--accent); color:#000; border:none;" onclick="addSale()">Enregistrer</button>
         </div>
-        <table id="salesTable">
+    </div>
+</section>
+
+<!-- PDG LOCK -->
+<section id="pdg-lock" class="pdg-lock">
+    <h2 style="font-family:'Syncopate'; color:var(--pdg-glow); margin-bottom:30px;">SECURED ACCESS</h2>
+    <input type="password" id="pin" style="width:250px; text-align:center; font-size:1.5rem; letter-spacing:10px;" placeholder="****">
+    <div style="display:flex; gap:10px;">
+        <button class="btn-luxe" onclick="show('home')">Quitter</button>
+        <button class="btn-luxe btn-pdg" style="background:var(--pdg-glow); color:#fff;" onclick="verify()">Déverrouiller</button>
+    </div>
+</section>
+
+<!-- SALON PDG -->
+<section id="pdg-section" class="section">
+    <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom:60px;">
+        <h2 style="font-family:'Syncopate'; font-size:1.5rem; color:var(--pdg-glow);">MASTER CONTROL</h2>
+        <button class="btn-luxe" onclick="show('home')">Déconnexion</button>
+    </div>
+
+    <div class="pdg-dashboard">
+        <div class="stat-card"><span>BÉNÉFICE NET</span><div class="stat-val" id="res_total">0 €</div></div>
+        <div class="stat-card"><span>LEADERSHIP</span><div class="stat-val" id="res_leader" style="font-size:1.2rem;">---</div></div>
+        <div class="stat-card"><span>TRANSACTIONS</span><div class="stat-val" id="res_count">0</div></div>
+    </div>
+
+    <div class="glass-panel" style="max-width:100%;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3 style="font-family:'Syncopate'; font-size:0.8rem;">JOURNAL DÉTAILLÉ</h3>
+            <button onclick="purge()" style="background:none; border:none; color:#444; font-size:0.7rem; cursor:pointer;">EFFACER LES ARCHIVES</button>
+        </div>
+        <table id="mainTable">
             <thead>
                 <tr>
                     <th>Date</th>
-                    <th>Vendeur</th>
-                    <th>Modèle</th>
-                    <th>Marge</th>
+                    <th>Conseiller</th>
+                    <th>Véhicule</th>
+                    <th>Marge Brute</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -113,8 +173,8 @@
 </section>
 
 <script>
-// Catalogue complet Prestige AUTO
-const database = {
+// Catalogue Prestige AUTO[cite: 3]
+const cars = {
     "Premier Limo": 100000, "Stellar 911 RS": 60000, "V Model S": 50000, "Charger 1870": 35000,
     "Stellar Coupe": 25000, "RX7": 20000, "Delorean CMD-12": 17000, "Korn Ranger 2021": 15000,
     "FTR": 15000, "Range River": 12000, "Camion Fourgon": 12000, "5008": 10000,
@@ -122,93 +182,68 @@ const database = {
     "C4 Picasso": 4000, "206": 4000, "Olympia S7": 3000, "Renaud Express": 2500, "Premier": 2000
 };
 
-let sales = JSON.parse(localStorage.getItem('prestige_v6')) || [];
+let db = JSON.parse(localStorage.getItem('prestige_final')) || [];
 
 function setup() {
-    const s = document.getElementById('carSelect');
-    Object.keys(database).forEach(car => {
-        let opt = document.createElement('option');
-        opt.value = car;
-        opt.textContent = `${car.toUpperCase()} (${database[car].toLocaleString()} €)`;
-        s.appendChild(opt);
+    const s = document.getElementById('carID');
+    Object.keys(cars).forEach(c => {
+        let o = document.createElement('option');
+        o.value = c;
+        o.textContent = `${c.toUpperCase()} (${cars[c].toLocaleString()} €)`;
+        s.appendChild(o);
     });
-    render();
+    draw();
 }
 
-function showSection(id) {
-    document.querySelectorAll('.section, .pdg-lock, .hero').forEach(s => s.style.display = 'none');
-    const target = document.getElementById(id);
-    if(id === 'home') target.style.display = 'flex';
-    else if(id === 'pdg-lock') target.style.display = 'flex';
-    else target.style.display = 'block';
+function show(id) {
+    document.querySelectorAll('.section, #home, .pdg-lock').forEach(s => s.style.display = 'none');
+    const t = document.getElementById(id);
+    t.style.display = (id === 'home' || id === 'pdg-lock') ? 'flex' : 'block';
+}
+
+function verify() {
+    if(document.getElementById('pin').value === "2009") {
+        show('pdg-section');
+        document.getElementById('pin').value = "";
+    } else {
+        alert("CODE INVALIDE");
+    }
 }
 
 function addSale() {
-    const name = document.getElementById('sellerName').value;
-    const car = document.getElementById('carSelect').value;
-    if(!name) return alert("Veuillez entrer votre nom de vendeur.");
-    
-    sales.push({ 
-        id: Date.now(), 
-        date: new Date().toLocaleDateString('fr-FR'),
-        seller: name, 
-        car: car, 
-        profit: database[car] 
-    });
-    
-    localStorage.setItem('prestige_v6', JSON.stringify(sales));
-    alert("Vente enregistrée avec succès !");
-    document.getElementById('sellerName').value = "";
-    render();
+    const name = document.getElementById('sellerID').value;
+    const v = document.getElementById('carID').value;
+    if(!name) return alert("Nom manquant");
+    db.push({ id: Date.now(), d: new Date().toLocaleDateString(), n: name, v: v, p: cars[v] });
+    localStorage.setItem('prestige_final', JSON.stringify(db));
+    alert("Vente enregistrée.");
+    document.getElementById('sellerID').value = "";
+    draw();
 }
 
-function checkCode() {
-    const code = document.getElementById('pdgCode').value;
-    if(code === "2009") {
-        showSection('pdg-section');
-        document.getElementById('pdgCode').value = "";
-    } else {
-        alert("ACCÈS REFUSÉ : CODE PIN INCORRECT");
-    }
-}
-
-function deleteSale(id) {
-    sales = sales.filter(x => x.id !== id);
-    localStorage.setItem('prestige_v6', JSON.stringify(sales));
-    render();
-}
-
-function purgeAll() {
-    if(confirm("ALERTE : Voulez-vous vraiment supprimer TOUT l'historique ?")) {
-        sales = [];
-        localStorage.setItem('prestige_v6', JSON.stringify(sales));
-        render();
-    }
-}
-
-function render() {
-    const body = document.querySelector('#salesTable tbody');
-    body.innerHTML = "";
-    let total = 0;
-    let leaders = {};
-
-    sales.forEach(s => {
-        total += s.profit;
-        leaders[s.seller] = (leaders[s.seller] || 0) + s.profit;
-        body.innerHTML += `<tr>
-            <td style="opacity:0.5; font-size:0.8rem">${s.date}</td>
-            <td><b>${s.seller}</b></td>
-            <td>${s.car}</td>
-            <td style="color:var(--pdg); font-weight:bold;">${s.profit.toLocaleString()} €</td>
-            <td><button onclick="deleteSale(${s.id})" style="color:red; background:none; border:none; cursor:pointer;">Effacer</button></td>
+function draw() {
+    const b = document.querySelector('#mainTable tbody');
+    b.innerHTML = "";
+    let tot = 0; let l = {};
+    db.forEach(x => {
+        tot += x.p;
+        l[x.n] = (l[x.n] || 0) + x.p;
+        b.innerHTML += `<tr>
+            <td style="opacity:0.4">${x.d}</td>
+            <td><b>${x.n}</b></td>
+            <td>${x.v}</td>
+            <td style="color:var(--pdg-glow)">${x.p.toLocaleString()} €</td>
+            <td><button class="delete-btn" onclick="kill(${x.id})">ANNULER</button></td>
         </tr>`;
     });
-
-    document.getElementById('totalGains').innerText = total.toLocaleString() + " €";
-    document.getElementById('units').innerText = sales.length;
-    let top = Object.keys(leaders).reduce((a, b) => leaders[a] > leaders[b] ? a : b, "---");
-    document.getElementById('topV').innerText = top.toUpperCase();
+    document.getElementById('res_total').innerText = tot.toLocaleString() + " €";
+    document.getElementById('res_count').innerText = db.length;
+    let top = Object.keys(l).reduce((a, b) => l[a] > l[b] ? a : b, "---");
+    document.getElementById('res_leader').innerText = top.toUpperCase();
 }
+
+function kill(id) { db = db.filter(x => x.id !== id); localStorage.setItem('prestige_final', JSON.stringify(db)); draw(); }
+function purge() { if(confirm("Réinitialiser ?")) { db = []; localStorage.setItem('prestige_final', JSON.stringify(db)); draw(); } }
 
 setup();
 </script>
